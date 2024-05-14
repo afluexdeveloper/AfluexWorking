@@ -1,0 +1,227 @@
+﻿@model DemoNew.Models.Admin
+
+@{
+    ViewBag.Title = "AdminDashboard";
+}
+<style>
+    .text_wraper{
+         white-space: nowrap; 
+  width: 260px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+    }
+    .icon_menu{
+        border-radius:50%;
+    }
+</style>
+
+   <div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <h2 class="mb-3 me-auto">Dashboard</h2>
+            <div>
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="row">
+                    <div class="col-xl-3 col-sm-3">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="menu">
+                                    <span class="font-w500 fs-16 d-block mb-2">Total Project</span>
+                                    <h2>@ViewBag.TotalProject</h2>
+                                </div>
+                                <div class="d-inline-block position-relative donut-chart-sale">
+                                    <span class="donut1" data-peity='{ "fill": ["rgb(98, 79, 209,1)", "rgba(247, 245, 255)"],   "innerRadius": 35, "radius": 10}'>5/8</span>
+                                    <small class="text-black">
+                                        @*<svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">*@
+                                            <img src="~/public/gificon/line-chart.gif"  class="icon_menu" width="50" />
+                                         
+                                      
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-3">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="menu">
+                                    <span class="font-w500 fs-16 d-block mb-2">Total Work</span>
+                                    <h2>@ViewBag.TotalWork</h2>
+                                </div>
+                                <div class="d-inline-block position-relative donut-chart-sale">
+                                    <span class="donut1" data-peity='{ "fill": ["rgb(98, 79, 209,1)", "rgba(247, 245, 255)"],   "innerRadius": 35, "radius": 10}'>5/6</span>
+                                    <small class="text-black">
+                                        <img src="~/public/gificon/presentation.gif" class="icon_menu" width="50" />
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-3">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="menu">
+                                    <span class="font-w500 fs-16 d-block mb-2">Total Done</span>
+                                    <h2>@ViewBag.TotalDoneWork</h2>
+                                </div>
+                                <div class="d-inline-block position-relative donut-chart-sale">
+                                    <span class="donut1" data-peity='{ "fill": ["rgb(98, 79, 209,1)", "rgba(247, 245, 255)"],   "innerRadius": 35, "radius": 10}'>5/6</span>
+                                    <small class="text-black">
+                                        <img src="~/public/gificon/double-check.gif" width="50"  class="icon_menu"/>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-3">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <div class="menu">
+                                    <span class="font-w500 fs-16 d-block mb-2">Total OnProcess</span>
+                                    <h2>@ViewBag.TotalOnProcessWork</h2>
+                                </div>
+                                <div class="d-inline-block position-relative donut-chart-sale">
+                                    <span class="donut1" data-peity='{ "fill": ["rgb(98, 79, 209,1)", "rgba(247, 245, 255)"],   "innerRadius": 35, "radius": 10}'>5/8</span>
+                                    <small class="text-black">
+                                        <img src="~/public/gificon/design-process.gif" class="icon_menu" width="50"  />
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="col-xxl-12 col-xl-12">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <div>
+                                    <h4 class="fs-20 mb-1">Recent Work</h4>
+                                    @*<span>Lorem ipsum dolor sit amet, consectetur</span>*@
+                                </div>
+                            </div>
+                            <div class="card-body pb-0">
+
+                @if (Model != null)
+                {
+                    if (Model.lstGetWorkTrend != null)
+                    {
+                        int i = 1;
+                        foreach (var Item1 in Model.lstGetWorkTrend)
+                        {
+                
+                            <div class="d-flex pb-3 mb-3 tr-row align-items-center border-bottom">
+                                <span class="num">#@i</span>
+                                <div class="me-auto pe-3">
+                                    <a href="/AdminReports/ProjectDailyWorkReports"><h2 class="text-black fs-14 font-w600 text_wraper">@Item1.Subject : @Item1.Module</h2></a>
+                                    <span class="text-black font-w600 d-inline-block badge badge-primary">@Item1.ProjectName</span>
+                                    @if (Item1.Status == "Done")
+                                    {
+                                        <span class="badge badge-success">@Item1.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">@Item1.Status</span>
+                                    }
+                                     <span class="fs-14">@Item1.WorkDate</span>
+                                   
+
+                                </div>
+                                @*<img src="/public/images/menu/pic1.jpg" alt="">*@
+                            </div>
+
+                            i++;
+                        }
+                    }
+                }
+                            </div>
+                          
+                        </div>
+
+                    </div>
+                    <div class="col-xl-4">
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <div>
+                                    <h4 class="fs-20 mb-1">Total Project Work</h4>
+                                    @*<span>Lorem ipsum dolor sit amet, consectetur</span>*@
+                                </div>
+                            </div>
+                            <div class="card-body">
+
+@if (Model != null)
+{
+    if (Model.lstTotalProjectWork != null)
+    {
+        int i = 1;
+        foreach (var Item2 in Model.lstTotalProjectWork)
+        {
+                                <div class="progress default-progress">
+                                    <div class="progress-bar bg-gradient-1 progress-animated" style="width: @Item2.TotalProjectWork%; height:11px;" role="progressbar">
+                                        <span class="sr-only">@Item2.TotalProjectWork% Complete</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end mt-2 pb-4 justify-content-between">
+                                    <span class="fs-16 text-primary font-w600">@Item2.ProjectWiseName</span>
+                                    <span class="fs-14"><span class="text-black pe-2"></span>@Item2.TotalProjectWork Work</span>
+                                </div>
+        }
+    }
+}
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                                <div class="card customer-wrapper">
+                                    <div class="card-header border-0">
+                                        <div>
+                                            <h4 class="fs-20 mb-1">Latest Employee</h4>
+                                        </div>
+                                        <div class="add-btn">
+                                            <a href="/Admin/EmployeeRegistration"><i class="fas fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body height400 loadmore-content dz-scroll pb-0 pt-0" id="CustomerListContent">
+
+
+                                @if (Model != null)
+                                {
+                                    if (Model.lstGetEmployee != null)
+                                    {
+                                        int i = 1;
+                                        foreach (var Item in Model.lstGetEmployee)
+                                        {
+                                        <div class="d-flex align-items-center mb-4">
+                                            <div class="recent-customer me-3">
+                                                <img src="@Item.ProfilePic" width="50" alt="">
+                                            </div>
+                                            <div>
+                                                <span class="c-name">@Item.EmployeeName</span>
+                                                <p class="font-w600 mb-0 text-primary">@Item.DesignationDetails</p>
+                                            </div>
+                                       </div>
+                                      }
+                                  }
+                              }
+                                        
+                                    </div>
+                                    
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

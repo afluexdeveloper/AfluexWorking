@@ -1,0 +1,122 @@
+﻿@model DemoNew.Models.Master
+
+@{
+    ViewBag.Title = "ProjectDailyWork";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("ProjectDailyWork", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <h4 class="mb-3 me-auto">/ Master / Project Daily Work</h4>
+            <div>
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Project Daily Work</h4>
+                </div>
+                <div class="card-body">
+                    <div class="basic-form">
+                        <div class="row">
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Project<span style="color:red">*</span></label>
+                                @Html.DropDownListFor(m => m.ProjectID, new SelectList(ViewBag.ddlProject, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name1" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Device<span style="color:red">*</span></label>
+                                @Html.DropDownListFor(m => m.Device, new SelectList(ViewBag.SelectDevice, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name2" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Entry Date<span style="color:red">*</span></label>
+                                @Html.TextBoxFor(m => m.EntryDate, new { @class = "datepicker-default form-control", @placeholder = "Select Date" ,@onchange= "return formatDate();" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Subject<span style="color:red">*</span></label>
+                                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", @placeholder = "Subject" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Module / Description<span style="color:red">*</span></label>
+                                @Html.TextBoxFor(m => m.Module, new { @class = "form-control", @placeholder = "Project Name" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Status<span style="color:red">*</span></label>
+                                @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.WorkStatus, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name3" })
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label">Remarks</label>
+                                @Html.TextBoxFor(m => m.Remark, new { @class = "form-control", @placeholder = "Something else..." })
+                            </div>
+                        </div>
+
+                        <input type="submit" id="Save" name="Save" class="btn btn-primary" onclick="return validateform()" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+}
+    <style>
+        .errortext {
+            border: 1px solid red !important;
+        }
+        
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+
+       
+
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        debugger;
+        if ($('#ProjectID').val() == '0') {
+            $("#ProjectID").addClass('errortext');
+            $(".select-name1").addClass('errortext');
+            $('#ProjectID').focus();
+            return false;
+        }
+        if ($('#Device').val() == '') {
+            $("#Device").addClass('errortext');
+            $(".select-name2").addClass('errortext');
+            $('#Device').focus();
+            return false;
+        }
+        if ($('#EntryDate').val() == '') {
+            $("#EntryDate").addClass('errortext');
+            $('#EntryDate').focus();
+            return false;
+        }
+        if ($('#Subject').val() == '') {
+            $("#Subject").addClass('errortext');
+            $('#Subject').focus();
+            return false;
+        }
+        if ($('#Module').val() == '') {
+            $("#Module").addClass('errortext');
+            $('#Module').focus();
+            return false;
+        }
+        if ($('#Status').val() == '') {
+            $("#Status").addClass('errortext');
+            $(".select-name3").addClass('errortext');
+            $('#Status').focus();
+            return false;
+        }
+        return true;
+    }
+
+   
+    </script>
+
+
+

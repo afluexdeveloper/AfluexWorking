@@ -1,0 +1,82 @@
+﻿@model DemoNew.Models.Master
+
+@{
+    ViewBag.Title = "DesignationMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("DesignationMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h4 class="mb-3 me-auto">/ Master / Designation Master</h4>
+                <div>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                    </ol>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Add Designation</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="basic-form">
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Department<span style="color:red">*</span></label>
+                                    @Html.DropDownListFor(m => m.DepartmentID, new SelectList(ViewBag.ddlDepartment, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name1", @onchange = "return GetDesignation();" })
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label">Designation Name<span style="color:red">*</span></label>
+                                    @Html.TextBoxFor(m => m.DesignationName, new { @class = "form-control", @placeholder = "Designation Name" })
+                                </div>
+                            </div>
+                            <input type="submit" id="Save" name="Save" class="btn btn-primary" onclick="return validateform()" value="Save">
+                            <a href="/Master/DesignationList" class="btn btn-primary">Go to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+
+
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        debugger;
+        if ($('#DesignationID').val() == '0') {
+            $("#DesignationID").addClass('errortext');
+            $(".select-name1").addClass('errortext');
+            $('#DesignationID').focus();
+            return false;
+        }
+        if ($('#DesignationName').val() == '') {
+            $("#DesignationName").addClass('errortext');
+            $('#DesignationName').focus();
+            return false;
+        }
+        return true;
+    }
+
+
+</script>
+
+
+
+
+

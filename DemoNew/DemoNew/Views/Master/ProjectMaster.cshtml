@@ -1,0 +1,165 @@
+﻿@model DemoNew.Models.Master
+
+@{
+    ViewBag.Title = "ProjectMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ProjectMaster", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+            <h4 class="mb-3 me-auto">/ Master / Add Project</h4>
+            <div>
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                </ol>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add Project</h4>
+                </div>
+                <div class="card-body">
+                    <div class="basic-form">
+
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label">Project Name<span style="color:red">*</span></label>
+                                @*<input type="text" class="form-control" placeholder="Main Category Name">*@
+                                @Html.TextBoxFor(m => m.ProjectName, new { @class = "form-control", @placeholder = "Project Name" })
+                            </div>
+                            <div class="mb-3 col-md-6 custom_file_input">
+                                <label class="form-label"><i class="fa fa-paperclip"></i> Project Logo <span style="color:red">*</span></label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Upload</span>
+                                    <div class="form-file">
+                                        @*<input type="file" class="form-file-input form-control" id="imgLogo" >*@
+                                        @Html.TextBoxFor(m => m.imgLogo, new { @class = "orm-file-input form-control", @placeholder = "Project Logo" ,@onchange = "readURL(this)",@type="file" })
+                                    </div>
+                                    <img src="" id="ContentPlaceHolder1_imgProductImage" class="fileinput-preview thumbnail" style="width: 150px; height: 100px;" alt="image" />
+                                </div>
+                                @*<div class="compose-content">
+                                        <form action="#" class="dropzone">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple />
+                                            </div>
+                                        </form>
+                                    </div>*@
+                            </div>
+                        </div>
+
+                        <input type="submit" id="Save" name="Save" class="btn btn-primary" onclick="return validateform()" value="Save">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Project List</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="display" style="min-width: 845px">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Project Name</th>
+                                        <th>Project Logo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model != null)
+                                    {
+                                        if (Model.lstProject != null)
+                                        {
+                                            int i = 1;
+                                            foreach (var Item in Model.lstProject)
+                                            {
+                                                <tr>
+                                                    <td>@i</td>
+                                                    <td>@Item.ProjectName</td>
+                                                    <td>
+                                                    <img src="@Item.ProjectLogo" alt="ProjectLogo"  width="50" height="50"/> </td>
+                                                </tr>
+                                                i++;
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Project Name</th>
+                                        <th>Project Logo</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+    <style>
+        .errortext {
+            border: 1px solid red !important;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+    function editMainCategory(maincategoryname, maincategoryid,img) {
+        $('#MainCategoryName').val(maincategoryname);
+        $('#MainCategoryID').val(maincategoryid);
+        $('#ContentPlaceHolder1_imgProductImage').attr("src", img);
+        $('#btnSave').hide();
+        $('#btnUpdate').show();
+    }
+
+    function updateMainCategory() {
+        $(".errortext").removeClass("errortext");
+        if ($('#MainCategoryName').val() == '') {
+            $("#MainCategoryName").addClass('errortext');
+            $('#MainCategoryName').focus();
+            return false;
+        }
+
+    }
+
+    function validateform() {
+        $(".errortext").removeClass("errortext");
+        if ($('#ProjectName').val() == '') {
+            $("#ProjectName").addClass('errortext');
+            $('#ProjectName').focus();
+            return false;
+        }
+        if ($('#imgLogo').val() == '') {
+            $("#imgLogo").addClass('errortext');
+            $('#imgLogo').focus();
+            return false;
+        }
+
+        return true;
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#ContentPlaceHolder1_imgProductImage')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+

@@ -1,0 +1,50 @@
+﻿@model DemoNew.Models.Master
+
+@{
+    ViewBag.Title = "ConfirmationRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EmployeeRegistration", "Admin", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h4 class="mb-3 me-auto">Confirmation Registration</h4>
+                <div>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                    </ol>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                    @*<div class="card-header">
+                        <h4 class="card-title">Add Employee</h4>
+                    </div>*@
+                    <div class="card-body">
+                        <div class="authincation">
+                            <div class="container h-100">
+                                <div class="row justify-content-center h-100 align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="form-input-content text-center error-page">
+                                            <h1 class="error-text fw-bold">Congratulation !!</h1>
+                                            <br />
+                                            <h4><i class="fa fa-thumbs-up text-success"></i>&nbsp; Dear, @Session["EmployeeName"]</h4>
+                                            <p>Thank you for your registration. Now you are Afluex Employee.Your Details are as Below:</p>
+                                            <p><b>Login ID: </b> @Session["LoginId"]  & <b>Password:</b> @Session["Password"]</p>
+                                            <div>
+                                                <a class="btn btn-primary" href="/Admin/EmployeeRegistration">Back to Register</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

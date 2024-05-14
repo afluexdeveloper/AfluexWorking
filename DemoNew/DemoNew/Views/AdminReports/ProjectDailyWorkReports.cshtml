@@ -1,0 +1,173 @@
+﻿@model DemoNew.Models.AdminReports
+
+@{
+    ViewBag.Title = "ProjectDailyWorkReports";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ProjectDailyWorkReports", "AdminReports", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h4 class="mb-3 me-auto">/ Reports / Daily Work Report</h4>
+                <div>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Daily Work Reports</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="basic-form">
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">Project</label>
+                                        @Html.DropDownListFor(m => m.ProjectID, new SelectList(ViewBag.ddlProject, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name1" })
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">Device</label>
+                                        @Html.DropDownListFor(m => m.Device, new SelectList(ViewBag.SelectDevice, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name2" })
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">Status</label>
+                                        @Html.DropDownListFor(m => m.Status, new SelectList(ViewBag.WorkStatus, "Value", "Text"), new { @class = "me-sm-2 default-select form-control wide select-name3" })
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">From Date</label>
+                                        @Html.TextBoxFor(m => m.FromDate, new { @class = "datepicker-default form-control", @placeholder = "From Date", @onchange = "return fromDate();" })
+                                    </div>
+                                    <div class="mb-3 col-md-4">
+                                        <label class="form-label">To Date</label>
+                                        @Html.TextBoxFor(m => m.ToDate, new { @class = "datepicker-default form-control", @placeholder = "To Date", @onchange = "return toDate();" })
+                                    </div>
+                                    <div class="mb-3 col-md-4" style="margin-top: 25px;">
+                                        <input type="submit" id="Search" name="Search" class="btn btn-primary" value="Search">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <hr />
+                            <div class="table-responsive">
+                                <table id="example" class="display" style="min-width: 845px">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Work Date</th>
+                                            <th>Project Name</th>
+                                            <th>Device</th>
+                                            <th>Subject</th>
+                                            <th>Module</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
+                                            <th>Remark</th>
+                                            <th>Work By</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model != null)
+                                        {
+                                            if (Model.lstDailyWork != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.lstDailyWork)
+                                                {
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@Item.EntryDate</td>
+                                                        <td>@Item.ProjectName</td>
+                                                        <td>@Item.Device</td>
+                                                        <td>@Item.Subject</td>
+                                                        <td>@Item.Module</td>
+                                                        <td><a href="@Item.ImageWork" target="_blank"><img src="@Item.ImageWork" alt="img" width="50" height="50" /></a></td>
+                                                        <td>@Item.Status</td>
+                                                        <td>@Item.Remark</td>
+                                                        <td>@Item.EmployeeName</td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Entry Date</th>
+                                            <th>Project Name</th>
+                                            <th>Device</th>
+                                            <th>Subject</th>
+                                            <th>Module</th>
+                                            <th>Status</th>
+                                            <th>Remark</th>
+                                            <th>Entry By</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Daily Work Reports</h4>
+                        </div>
+                        <div class="card-body">
+                            
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function fromDate() {
+        debugger;
+        if ($('#FromDate').val() != '') {
+            var dateString = $('#FromDate').val();
+            var datenew = new Date(dateString);
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var day = datenew.getDate();
+            var monthIndex = datenew.getMonth() + 1;
+            var year = datenew.getFullYear();
+            var formattedDate = day + "/" + [monthIndex] + "/" + year;
+            $('#FromDate').val(formattedDate);
+        }
+
+    }
+    function toDate() {
+        debugger;
+        if ($('#ToDate').val() != '') {
+            var dateString = $('#ToDate').val();
+            var datenew = new Date(dateString);
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var day = datenew.getDate();
+            var monthIndex = datenew.getMonth() + 1;
+            var year = datenew.getFullYear();
+            var formattedDate = day + "/" + [monthIndex] + "/" + year;
+            $('#ToDate').val(formattedDate);
+        }
+
+    }
+</script>
+<style>
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+
+
+

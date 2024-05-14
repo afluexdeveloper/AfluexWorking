@@ -1,0 +1,79 @@
+﻿@model DemoNew.Models.Master
+
+@{
+    ViewBag.Title = "DepartmentList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("DepartmentList", "Master", FormMethod.Post, new { @id = "form1", enctype = "multipart/form-data", @autocomplete = "off" }))
+{
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="mb-sm-4 d-flex flex-wrap align-items-center text-head">
+                <h4 class="mb-3 me-auto">/ Master / Department List</h4>
+                <div>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>*@
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Department List</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example" class="display" style="min-width: 845px">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Department Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @if (Model != null)
+                                        {
+                                            if (Model.listDepartment != null)
+                                            {
+                                                int i = 1;
+                                                foreach (var Item in Model.listDepartment)
+                                                {
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>@Item.DepartmentName</td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Department Name</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .errortext {
+        border: 1px solid red !important;
+    }
+</style>
+
+
+
