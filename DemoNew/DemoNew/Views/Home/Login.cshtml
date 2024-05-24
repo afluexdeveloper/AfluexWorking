@@ -25,7 +25,7 @@
     <title>DemoNew | Login</title>
 
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="~/AfluexLogo/favicon.png" />
 
     <!-- Style css -->
     <link href="/public/css/style.css" rel="stylesheet">
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password <span style="color:red">*</span></strong></label>
-                                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @required = true })
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @required = true })
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
                                             <div class="mb-3">

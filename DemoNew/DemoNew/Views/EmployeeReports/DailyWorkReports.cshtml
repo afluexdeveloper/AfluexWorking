@@ -77,6 +77,7 @@
                                             <th>Status</th>
                                             <th>Remark</th>
                                             <th>Work By</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -98,6 +99,11 @@
                                                         <td>@Item.Status</td>
                                                         <td>@Item.Remark</td>
                                                         <td>@Item.EmployeeName</td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <a href="/EmployeeLogin/DailyWork?DailyWorkID=@Item.DailyWorkID" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                                                                <a href="/EmployeeLogin/DailyWork?DailyWorkID=@Item.DailyWorkID" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                            </div>
                                                     </tr>
                                                     i++;
                                                 }
