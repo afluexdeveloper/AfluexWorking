@@ -18,6 +18,35 @@
                     </ol>
                 </div>
             </div>
+            @if (TempData["SaveYourWork"] != null)
+            {
+                <div class="alert alert-success alert-dismissible alert-alt fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                    <strong>Success!</strong> @TempData["SaveYourWork"]
+                </div>
+            }
+            else if (TempData["ErrYourWork"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible alert-alt fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                    <strong>Error!</strong> @TempData["ErrYourWork"]
+                </div>
+            }
+            else if (TempData["UpdateYourWork"] != null)
+            {
+                <div class="alert alert-success alert-dismissible alert-alt fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                    <strong>Updated!</strong> @TempData["UpdateYourWork"]
+                </div>
+            }
+            else if (TempData["ErrUpdateYourWork"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible alert-alt fade show">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
+                    <strong>Error!</strong> @TempData["ErrUpdateYourWork"]
+                </div>
+            }
+           
             <div class="col-xl-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -44,7 +73,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">Module / Description<span style="color:red">*</span></label>
-                                    @Html.TextBoxFor(m => m.Module, new { @class = "form-control", @placeholder = "Project Name" })
+                                    @Html.TextAreaFor(m => m.Module, new { @class = "form-control", @placeholder = "Project Name" })
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">Image</label>
@@ -56,11 +85,20 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label">Remarks <span style="color:red;display:none" id="textshow">*</span></label>
-                                    @Html.TextBoxFor(m => m.Remark, new { @class = "form-control", @placeholder = "Something else..." })
+                                    @Html.TextAreaFor(m => m.Remark, new { @class = "form-control", @placeholder = "Something else..." })
                                 </div>
                             </div>
-
-                            <input type="submit" id="Save" name="Save" class="btn btn-primary" onclick="return validateform()" value="Save">
+                            @Html.HiddenFor(m=> m.DailyWorkID)
+                            @if (Model.DailyWorkID == null)
+                            {
+                                <input type="submit" id="Save" name="Save" class="btn btn-primary" onclick="return validateform()" value="Save">
+                            }
+                            else
+                            {
+                                <input type="submit" id="Update" name="Update" class="btn btn-secondary" onclick="return validateform()" value="Update">
+                                <a href="/EmployeeReports/DailyWorkReports" class="btn btn-info" onclick="return validateform()" >Back To List</a>
+                            }
+                            
                         </div>
                     </div>
                 </div>

@@ -93,6 +93,24 @@ namespace DemoNew.Models
             DataSet ds = Connection.ExecuteQuery("SaveDailyWork", para);
             return ds;
         }
+        public DataSet UpdateProjectDailyWork()
+        {
+            SqlParameter[] para =
+                {
+                new SqlParameter("@DailyWorkID",DailyWorkID),
+                     new SqlParameter("@ProjectID",ProjectID),
+                      new SqlParameter("@Device",Device),
+                       new SqlParameter("@EntryDate",EntryDate),
+                      new SqlParameter("@Subject",Subject),
+                       new SqlParameter("@Module",Module),
+                       new SqlParameter("@ImageWork",ImageWork),
+                      new SqlParameter("@Status",Status),
+                      new SqlParameter("@Remarks",Remark),
+                      new SqlParameter("@UpdatedBy",UpdatedBy),
+               };
+            DataSet ds = Connection.ExecuteQuery("UpdateDailyWork", para);
+            return ds;
+        }
         public DataSet DesignationList()
         {
             SqlParameter[] para = { new SqlParameter("@FK_DepartmentID", DepartmentID) };
@@ -123,6 +141,7 @@ namespace DemoNew.Models
                       new SqlParameter("@FromDate",FromDate),
                       new SqlParameter("@ToDate",ToDate),
                       new SqlParameter("@FK_EmployeeID",FK_EmployeeID),
+                       new SqlParameter("@DailyWorkID",DailyWorkID),
                };
             DataSet ds = Connection.ExecuteQuery("GetDailyWorkList", para);
             return ds;

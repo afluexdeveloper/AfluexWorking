@@ -1,4 +1,5 @@
-﻿using AfluexHRMS.Filter;
+﻿using AfluexHRMS;
+using AfluexHRMS.Filter;
 using AfluexHRMS.Models;
 using DemoNew.Models;
 using System;
@@ -66,7 +67,7 @@ namespace DemoNew.Controllers
                 foreach (DataRow r in ds1.Tables[0].Rows)
                 {
                     Employee obj = new Employee();
-                    obj.DailyWorkID = r["PK_DailyWorkID"].ToString();
+                    obj.DailyWorkID = Crypto.Encrypt(r["PK_DailyWorkID"].ToString());
                     obj.ProjectID = r["FK_ProjectID"].ToString();
                     obj.ProjectName = r["ProjectName"].ToString();
                     obj.Device = r["Device"].ToString();
